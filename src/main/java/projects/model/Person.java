@@ -77,8 +77,7 @@ public abstract class Person implements Manageable {
 
     @Override
     public String toString() {
-        return "Person ->" +
-                " | ID: " + id +
+        return  " | ID: " + id +
                 " | Name: " + name +
                 " | Email: " + email +
                 " | IQ: " + IQ;

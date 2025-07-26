@@ -40,22 +40,21 @@ public class Teacher extends Person implements Schedulable, Reportable {
         this.schedule = schedule;
     }
 
+
     public void assignCourse(Course course) {
         if (course == null) {
             System.out.println("Course can't be null");
             return;
         }
-        if (assignedCourses.length > 3) {
+        if (courseCount > 3) {
             System.out.println("No More Course Can Be Assigned");
 
         } else {
             Course[] temp = new Course[++courseCount];
-            int tempIndex = 0;
-            for (Course c : assignedCourses) {
-                temp[tempIndex] = c;
-                tempIndex++;
+            for (int i = 0; i < courseCount-1; i++) {
+                temp[i] = assignedCourses[i];
             }
-            temp[tempIndex] = course;
+            temp[courseCount-1] = course;
             assignedCourses = temp;
         }
     }
@@ -90,7 +89,7 @@ public class Teacher extends Person implements Schedulable, Reportable {
 
         if (courseCount > 0) {
             for (Course c : assignedCourses) {
-                report.append("\nStudents of " + c.getName() + " course " + Arrays.toString(c.getStudents()));
+                report.append("\nStudents of " + c.getName() + " course: " + c.studentNames());
             }
         }
         return report.toString();
@@ -105,7 +104,7 @@ public class Teacher extends Person implements Schedulable, Reportable {
         StringBuilder sb = new StringBuilder();
 
         for (Course c : assignedCourses) {
-            sb.append(c.getName() + " ");
+            sb.append(c.getName() + ". ");
         }
         return sb.toString();
     }
@@ -138,8 +137,8 @@ public class Teacher extends Person implements Schedulable, Reportable {
 
     @Override
     public String toString() {
-        return "Teacher ->" + super.toString() +
-                " | AssignedCourses=" + Arrays.toString(assignedCourses) +
+        return   super.toString() +
+                " | AssignedCourses=" + getCourseNames() +
                 " | CourseCount=" + courseCount +
                 " | Schedule=" + Arrays.toString(schedule);
     }

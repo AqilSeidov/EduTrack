@@ -59,6 +59,18 @@ public class Student extends Person implements Notifiable, Reportable {
         }
     }
 
+    public String printCourseNames(){
+
+        if(courses == null){
+            return "There is no enrolled course.";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < courseCount; i++) {
+            sb.append(courses[i].getName() + ". ");
+        }
+        return sb.toString();
+    }
+
     @Override
     public void printInfo() {
         System.out.println("ID: " + getId() + "Name: " + getName() + "Email: " + getEmail());
@@ -95,9 +107,9 @@ public class Student extends Person implements Notifiable, Reportable {
 
     @Override
     public String toString() {
-        return "Student ->" + super.toString() +
+        return  super.toString() +
                 " | MAX_COURSE_COUNT:  " + MAX_COURSE_COUNT +
-                " | Courses: " + Arrays.toString(courses) +
+                " | Courses: " + printCourseNames() +
                 " | CourseCount: " + courseCount;
     }
 }

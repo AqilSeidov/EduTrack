@@ -13,13 +13,10 @@ public class Course {
     private Student[] students;
     private int studentCount;
 
-    public Course(String name, String category, Teacher teacher) {
+    public Course(String name, String category) {
         this.id = nextId++;
         this.name = name;
         this.category = category;
-        this.teacher = teacher;
-        this.students = null;
-        this.studentCount = 0;
     }
 
     public int getId() {
@@ -70,6 +67,7 @@ public class Course {
         this.studentCount = studentCount;
     }
 
+
     public void addStudent(Student student) {
         if (student == null) {
             System.out.println("Value can't be null.");
@@ -87,6 +85,7 @@ public class Course {
         students = temp;
     }
 
+
     public int findStudentIndex(int id) {
         for (int i = 0; i < studentCount; i++) {
             if (students[i].getId() == id) {
@@ -95,6 +94,7 @@ public class Course {
         }
         return -1;
     }
+
 
     public void removeStudent(int index) {
         if (index < 0 || index > studentCount - 1) {
@@ -112,9 +112,24 @@ public class Course {
         students = temp;
     }
 
+
     public void printCourseInfo() {
         System.out.println("Name: " + name + " Teacher" + teacher.getName() + " Student Count: " + studentCount);
     }
+
+    //Helper method
+    public String studentNames() {
+        if(students == null) {
+            return "No students found";
+        }
+        StringBuilder sb = new StringBuilder();
+        String[] names = new String[studentCount];
+        for (int i = 0; i < studentCount; i++) {
+            sb.append(students[i].getName()).append(", ");
+        }
+        return sb.toString();
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -130,13 +145,10 @@ public class Course {
 
     @Override
     public String toString() {
-        return "Course ->" +
-                " | MAX_STUDENT_COUNT: " + MAX_COURSE_COUNT +
-                " | ID: " + id +
+        return  " | ID: " + id +
                 " | Name: " + name +
                 " | Category: " + category +
-                " | Teacher: " + teacher +
-                " | Students: " + Arrays.toString(students) +
+                " | Teacher: " + teacher.getName() +
                 " | StudentCount: " + studentCount;
     }
 }
